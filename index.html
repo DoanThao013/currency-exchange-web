@@ -28,6 +28,15 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
+
+        /* Dropdown currency selector */
+        details summary {
+            list-style: none;
+        }
+        details summary::-webkit-details-marker,
+        details summary::marker {
+            display: none;
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -60,11 +69,31 @@
                             <span class="text-xl font-semibold text-gray-800 mr-1">$</span>
                             <input type="number" value="1.00" class="text-xl md:text-2xl font-bold text-gray-800 w-full outline-none bg-transparent" placeholder="0.00">
                         </div>
-                        <button class="flex items-center gap-2 hover:bg-gray-50 px-2 py-1.5 rounded-lg transition-colors border border-transparent hover:border-gray-200">
-                            <img src="https://flagcdn.com/w40/us.png" alt="US Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
-                            <span class="font-semibold text-gray-700 text-sm md:text-base">USD - Đô la Mỹ</span>
-                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
+                        <details class="relative group text-left">
+                            <summary class="flex items-center gap-2 hover:bg-gray-50 px-2 py-1.5 rounded-lg transition-colors border border-transparent hover:border-gray-200 cursor-pointer">
+                                <img src="https://flagcdn.com/w40/us.png" alt="US Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                <span class="font-semibold text-gray-700 text-sm md:text-base">USD - Đô la Mỹ</span>
+                                <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </summary>
+                            <div class="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden z-20">
+                                <button type="button" class="w-full text-left px-3 py-3 hover:bg-gray-50 flex items-center gap-3">
+                                    <img src="https://flagcdn.com/w40/vn.png" alt="VND Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                    <span class="text-sm font-medium text-gray-700">VND - Đồng Việt Nam</span>
+                                </button>
+                                <button type="button" class="w-full text-left px-3 py-3 hover:bg-gray-50 flex items-center gap-3">
+                                    <img src="https://flagcdn.com/w40/us.png" alt="USD Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                    <span class="text-sm font-medium text-gray-700">USD - Đô la Mỹ</span>
+                                </button>
+                                <button type="button" class="w-full text-left px-3 py-3 hover:bg-gray-50 flex items-center gap-3">
+                                    <img src="https://flagcdn.com/w40/au.png" alt="AUD Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                    <span class="text-sm font-medium text-gray-700">AUD - Đô la Úc</span>
+                                </button>
+                                <button type="button" class="w-full text-left px-3 py-3 hover:bg-gray-50 flex items-center gap-3">
+                                    <img src="https://flagcdn.com/w40/eu.png" alt="EUR Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                    <span class="text-sm font-medium text-gray-700">EUR - Euro</span>
+                                </button>
+                            </div>
+                        </details>
                     </div>
                 </div>
 
@@ -92,11 +121,31 @@
                             <span class="text-xl font-semibold text-gray-800 mr-1">€</span>
                             <input type="number" value="0.85" class="text-xl md:text-2xl font-bold text-gray-800 w-full outline-none bg-transparent" placeholder="0.00">
                         </div>
-                        <button class="flex items-center gap-2 hover:bg-gray-50 px-2 py-1.5 rounded-lg transition-colors border border-transparent hover:border-gray-200">
-                            <img src="https://flagcdn.com/w40/eu.png" alt="EU Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
-                            <span class="font-semibold text-gray-700 text-sm md:text-base">EUR - Euro</span>
-                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
+                        <details class="relative group text-left">
+                            <summary class="flex items-center gap-2 hover:bg-gray-50 px-2 py-1.5 rounded-lg transition-colors border border-transparent hover:border-gray-200 cursor-pointer">
+                                <img src="https://flagcdn.com/w40/eu.png" alt="EU Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                <span class="font-semibold text-gray-700 text-sm md:text-base">EUR - Euro</span>
+                                <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </summary>
+                            <div class="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden z-20">
+                                <button type="button" class="w-full text-left px-3 py-3 hover:bg-gray-50 flex items-center gap-3">
+                                    <img src="https://flagcdn.com/w40/vn.png" alt="VND Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                    <span class="text-sm font-medium text-gray-700">VND - Đồng Việt Nam</span>
+                                </button>
+                                <button type="button" class="w-full text-left px-3 py-3 hover:bg-gray-50 flex items-center gap-3">
+                                    <img src="https://flagcdn.com/w40/us.png" alt="USD Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                    <span class="text-sm font-medium text-gray-700">USD - Đô la Mỹ</span>
+                                </button>
+                                <button type="button" class="w-full text-left px-3 py-3 hover:bg-gray-50 flex items-center gap-3">
+                                    <img src="https://flagcdn.com/w40/au.png" alt="AUD Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                    <span class="text-sm font-medium text-gray-700">AUD - Đô la Úc</span>
+                                </button>
+                                <button type="button" class="w-full text-left px-3 py-3 hover:bg-gray-50 flex items-center gap-3">
+                                    <img src="https://flagcdn.com/w40/eu.png" alt="EUR Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                                    <span class="text-sm font-medium text-gray-700">EUR - Euro</span>
+                                </button>
+                            </div>
+                        </details>
                     </div>
                 </div>
 
