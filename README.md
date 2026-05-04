@@ -1,1 +1,1 @@
-# 💱 Ứng dụng Chuyển đổi Tiền tệ Đơn giản
+#  Simple Currency Exchange web
