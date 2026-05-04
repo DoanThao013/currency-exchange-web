@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công cụ Chuyển đổi Tiền tệ</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        /* Tùy chỉnh màu sắc để giống thiết kế nhất */
+        .bg-brand-dark { background-color: #0a146e; }
+        .bg-brand-blue { background-color: #0062cc; }
+        .text-brand-blue { color: #0062cc; }
+        .bg-brand-light { background-color: #f0f5fa; }
+        
+        /* Ẩn mũi tên lên xuống của thẻ input type="number" */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header & Background Curve Section -->
+    <div class="bg-brand-dark relative pt-20 pb-40">
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Công cụ Chuyển đổi Tiền tệ và Tỷ giá</h1>
+            <p class="text-lg text-blue-100 font-medium">Xem tỷ giá ngoại tệ trực tiếp</p>
+        </div>
+        
+        <!-- SVG Curve Background -->
+        <svg class="absolute -bottom-1 w-full h-[60px] md:h-[120px] text-[#f8f9fa]" preserveAspectRatio="none" viewBox="0 0 1440 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,100 C480,0 960,0 1440,100 Z" />
+        </svg>
+    </div>
+
+    <!-- Main Card Container -->
+    <div class="container mx-auto px-4 relative z-20 -mt-24 md:-mt-28 mb-20">
+        <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-6 md:p-8">
+            
+            <!-- Inputs Row -->
+            <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6 relative">
+                
+                <!-- "From" Input Box -->
+                <div class="w-full border border-gray-200 rounded-xl p-3 md:p-4 hover:border-gray-300 focus-within:border-brand-blue focus-within:ring-1 focus-within:ring-brand-blue transition-all bg-white relative">
+                    <label class="block text-sm text-gray-500 font-medium mb-1">Từ</label>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center w-1/2">
+                            <span class="text-xl font-semibold text-gray-800 mr-1">$</span>
+                            <input type="number" value="1.00" class="text-xl md:text-2xl font-bold text-gray-800 w-full outline-none bg-transparent" placeholder="0.00">
+                        </div>
+                        <button class="flex items-center gap-2 hover:bg-gray-50 px-2 py-1.5 rounded-lg transition-colors border border-transparent hover:border-gray-200">
+                            <img src="https://flagcdn.com/w40/us.png" alt="US Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                            <span class="font-semibold text-gray-700 text-sm md:text-base">USD - Đô la Mỹ</span>
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Swap Button -->
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center">
+                    <button class="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 text-gray-600 shadow-sm transition-transform hover:scale-105 focus:outline-none">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Swap Button for Mobile -->
+                <button class="md:hidden w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 text-gray-600 shadow-sm z-10 -my-6 relative focus:outline-none">
+                    <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                    </svg>
+                </button>
+
+                <!-- "To" Input Box -->
+                <div class="w-full border border-gray-200 rounded-xl p-3 md:p-4 hover:border-gray-300 focus-within:border-brand-blue focus-within:ring-1 focus-within:ring-brand-blue transition-all bg-white relative">
+                    <label class="block text-sm text-gray-500 font-medium mb-1">Đến</label>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center w-1/2">
+                            <span class="text-xl font-semibold text-gray-800 mr-1">€</span>
+                            <input type="number" value="0.85" class="text-xl md:text-2xl font-bold text-gray-800 w-full outline-none bg-transparent" placeholder="0.00">
+                        </div>
+                        <button class="flex items-center gap-2 hover:bg-gray-50 px-2 py-1.5 rounded-lg transition-colors border border-transparent hover:border-gray-200">
+                            <img src="https://flagcdn.com/w40/eu.png" alt="EU Flag" class="w-6 h-6 rounded-full object-cover border border-gray-100 shadow-sm">
+                            <span class="font-semibold text-gray-700 text-sm md:text-base">EUR - Euro</span>
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Section (Rate info & Action Buttons) -->
+            <div class="mt-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                <!-- Rate Info -->
+                <div>
+                    <h3 class="text-xl md:text-2xl font-bold text-brand-dark mb-1">
+                        1.00 USD = 0.85<span class="text-gray-400">331933</span> EUR
+                    </h3>
+                    <p class="text-sm font-medium text-gray-500">
+                        Tỷ giá trung tâm lúc 09:32 UTC
+                    </p>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row w-full md:w-auto gap-3">
+                    <button class="w-full sm:w-auto px-6 py-3 bg-brand-blue text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-blue focus:ring-offset-2 text-sm md:text-base whitespace-nowrap">
+                        Chuyển tiền
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
