@@ -1,65 +1,27 @@
-
-
-:root {
-	/* Slate + Violet palette */
-	--header-gradient: linear-gradient(180deg, #88cabf 0%, #accfec 100%);
-	--btn-primary: #7c3aed;
-	--bg-body: #f8fafc;
-	--text-dark: #0f172a;
-	--text-gray: #64748b;
-	--border-light: #92afd4;
-
-	/* Back-compat aliases for existing class mappings */
-	--brand-dark: var(--text-dark);
-	--brand-blue: var(--btn-primary);
-	--brand-light: var(--bg-body);
-	--page-bg: var(--bg-body);
-} 
-
 body {
-	font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-	background-color: var(--bg-body);
-	color: var(--text-dark);
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
 }
 
-/* Brand colors (used as custom Tailwind-like utilities) */
-.bg-brand-dark {
-	background: var(--header-gradient);
-	background-color: var(--text-dark);
-}
+/* Tùy chỉnh màu sắc thương hiệu */
+.bg-brand-dark { background-color: #0a146e; }
+.bg-brand-blue { background-color: #0062cc; }
+.text-brand-blue { color: #0062cc; }
+.bg-brand-light { background-color: #f0f5fa; }
+.text-brand-dark { color: #0a146e; }
 
-.bg-brand-blue { background-color: var(--btn-primary); }
-.bg-brand-light { background-color: var(--brand-light); }
-
-.text-brand-dark { color: var(--text-dark); }
-.text-brand-blue { color: var(--btn-primary); }
-
-.border-brand-blue { border-color: var(--btn-primary); }
-.ring-brand-blue { --tw-ring-color: var(--btn-primary); }
-
-/* Variants used directly in class attributes (e.g. focus-within:border-brand-blue) */
-.focus-within\:border-brand-blue:focus-within { border-color: var(--btn-primary); }
-.focus\:border-brand-blue:focus { border-color: var(--btn-primary); }
-
-.focus-within\:ring-brand-blue:focus-within { --tw-ring-color: var(--btn-primary); }
-.focus\:ring-brand-blue:focus { --tw-ring-color: var(--btn-primary); }
-
-/* Hide number input spinners */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+/* Ẩn mũi tên lên xuống của thẻ input type="number" */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
 }
 
 input[type=number] {
-	-moz-appearance: textfield;
-	appearance: textfield;
+    -moz-appearance: textfield; 
 }
 
-details summary {
-	list-style: none;
-}
-details summary::-webkit-details-marker,
-details summary::marker {
-	display: none;
+/* Ẩn mũi tên mặc định của select trên IE/Edge cũ (Tailwind appearance-none đã lo phần lớn) */
+select::-ms-expand {
+    display: none;
 }
