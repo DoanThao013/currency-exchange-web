@@ -1,12 +1,25 @@
-// Dữ liệu mô phỏng tỷ giá so với 1 USD (Base Currency)
-const currencyData = {
+let currencyData = {
     USD: { rate: 1, symbol: "$", flag: "us" },
     EUR: { rate: 0.93, symbol: "€", flag: "eu" },
     VND: { rate: 25450, symbol: "₫", flag: "vn" },
     AUD: { rate: 1.53, symbol: "A$", flag: "au" }
 };
 
-// Lấy các elements
+async function fetchRates() {
+    try {
+        const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+        if (!res.ok) throw new Error('Không lấy được tỷ giá');
+        const data = await res.json();
+        Object.keys(currencyData).forEach(code => {
+            if (data.rates[code]) {
+                currencyData[code].rate = data.rates[code];
+            }
+        });
+    } catch (e) {
+        console.error('Lỗi lấy tỷ giá:', e);
+    }
+}
+
 const inputFrom = document.getElementById('inputFrom');
 const inputTo = document.getElementById('inputTo');
 
@@ -23,19 +36,23 @@ const rateInfo = document.getElementById('rateInfo');
 const btnSwap = document.getElementById('btnSwap');
 const btnSwapMobile = document.getElementById('btnSwapMobile');
 
-// Hàm format số (VND không lấy số thập phân, các ngoại tệ khác lấy 2 chữ số thập phân)
 function formatNumber(num, currencyCode) {
     if (currencyCode === 'VND') {
         return Math.round(num).toLocaleString('vi-VN');
     }
-    // Đối với các ngoại tệ khác, dùng toLocaleString với 2 số thập phân
     return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-// Cập nhật giao diện (Cờ và Ký hiệu)
 function updateUI() {
     const fromCode = currencyFrom.value;
     const toCode = currencyTo.value;
+
+    Array.from(currencyFrom.options).forEach(opt => {
+        opt.disabled = opt.value === toCode;
+    });
+    Array.from(currencyTo.options).forEach(opt => {
+        opt.disabled = opt.value === fromCode;
+    });
 
     flagFrom.src = `https://flagcdn.com/w40/${currencyData[fromCode].flag}.png`;
     flagTo.src = `https://flagcdn.com/w40/${currencyData[toCode].flag}.png`;
@@ -56,16 +73,13 @@ function parseFormattedNumber(value, currencyCode) {
     return parseFloat(cleaned) || 0;
 }
 
-// Logic tính toán tỷ giá chuyển đổi
 function calculate() {
     const fromCode = currencyFrom.value;
     const toCode = currencyTo.value;
     
-    // Chuyển đổi mọi thứ về USD trước (amount / rate của tiền gốc), sau đó nhân với rate của tiền đích
     const amountInUSD = parseFloat(inputFrom.value) / currencyData[fromCode].rate;
     let convertedAmount = amountInUSD * currencyData[toCode].rate;
 
-    // Xử lý nếu input rỗng hoặc không hợp lệ
     if (isNaN(convertedAmount)) {
         convertedAmount = 0;
     }
@@ -76,7 +90,6 @@ function calculate() {
     rateInfo.innerHTML = `1.00 ${fromCode} = <span class="text-brand-blue">${formatNumber(baseRate, toCode)}</span> ${toCode}`;
 }
 
-// Sự kiện Hoán đổi (Swap)
 function swapCurrencies() {
     const currentToValue = parseFormattedNumber(inputTo.value, currencyTo.value);
     let tempCurrency = currencyFrom.value;
@@ -88,7 +101,6 @@ function swapCurrencies() {
     calculate();
 }
 
-// Lắng nghe sự kiện
 inputFrom.addEventListener('input', calculate);
 currencyFrom.addEventListener('change', () => { updateUI(); calculate(); });
 currencyTo.addEventListener('change', () => { updateUI(); calculate(); });
@@ -96,6 +108,8 @@ currencyTo.addEventListener('change', () => { updateUI(); calculate(); });
 btnSwap.addEventListener('click', swapCurrencies);
 btnSwapMobile.addEventListener('click', swapCurrencies);
 
-// Chạy lần đầu khi load trang
-updateUI();
-calculate();
+(async function init() {
+    await fetchRates();
+    updateUI();
+    calculate();
+})();
