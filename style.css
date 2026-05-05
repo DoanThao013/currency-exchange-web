@@ -1,27 +1,230 @@
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f8f9fa;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg-base: #c2ddef;
+    --header-bg: #5aabd4;
+    --accent: #1a7ab8;
+    --accent-light: #5aabd4;
+    --accent-dim: rgba(26, 122, 184, .18);
+    --card-bg: rgba(255, 255, 255, .88);
+    --card-border: rgba(26, 122, 184, .18);
+    --card-shadow: 0 8px 32px rgba(26, 100, 180, .14), 0 2px 8px rgba(0, 0, 0, .05);
+    --input-bg: rgba(255, 255, 255, .75);
+    --input-border: rgba(26, 122, 184, .20);
+    --text-dark: #0c3251;
+    --text-mid: #1a5276;
+    --text-muted: rgba(12, 50, 81, .55);
+    --text-label: rgba(12, 50, 81, .60);
+    --radius-card: 1.25rem;
 }
 
-/* Tùy chỉnh màu sắc thương hiệu */
-.bg-brand-dark { background-color: #0a146e; }
-.bg-brand-blue { background-color: #0062cc; }
-.text-brand-blue { color: #0062cc; }
-.bg-brand-light { background-color: #f0f5fa; }
-.text-brand-dark { color: #0a146e; }
 
-/* Ẩn mũi tên lên xuống của thẻ input type="number" */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(180deg, #4e9fc9 0%, #c2ddef 55%) fixed;
+    color: var(--text-dark);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.orb {
+    display: none;
+}
+
+
+.bg-brand-dark {
+    background: transparent !important;
+    position: relative;
+}
+
+
+.bg-brand-dark svg.absolute {
+    display: none;
+}
+
+
+.bg-brand-blue {
+    background-color: var(--accent);
+}
+
+.text-brand-blue {
+    color: var(--accent);
+}
+
+.bg-brand-light {
+    background-color: rgba(26, 122, 184, .10);
+}
+
+
+.text-brand-dark {
+    color: var(--accent);
+    font-weight: 700;
+    -webkit-text-fill-color: var(--accent);
+}
+
+.bg-brand-dark,
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+
+.max-w-5xl.bg-white {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--card-shadow) !important;
+}
+
+.w-full.border.rounded-xl,
+.w-full.border.border-gray-200.rounded-xl {
+    background: var(--input-bg) !important;
+    border-color: var(--input-border) !important;
+    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.w-full.border.rounded-xl:hover,
+.w-full.border.border-gray-200.rounded-xl:hover {
+    background: rgba(255, 255, 255, .92) !important;
+    border-color: var(--accent-light) !important;
+}
+
+.focus-within\:border-brand-blue:focus-within,
+.w-full.border.rounded-xl:focus-within {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px var(--accent-dim) !important;
+    background: rgba(255, 255, 255, .97) !important;
+}
+
+.hover\:bg-gray-50:hover {
+    background: rgba(26, 122, 184, .07) !important;
+}
+
+.hover\:border-gray-200:hover {
+    border-color: rgba(26, 122, 184, .25) !important;
+}
+
+.text-gray-800 {
+    color: var(--text-dark) !important;
+}
+
+.text-gray-700 {
+    color: var(--text-mid) !important;
+}
+
+.text-gray-600 {
+    color: #1f618d !important;
+}
+
+.text-gray-500 {
+    color: var(--text-muted) !important;
+}
+
+.text-gray-500.absolute {
+    color: var(--text-muted) !important;
+}
+
+select option {
+    background: #ffffff;
+    color: var(--text-dark);
+}
+
+#btnSwap,
+#btnSwapMobile {
+    background: var(--accent) !important;
+    border: none !important;
+    color: #fff !important;
+    box-shadow: 0 0 0 3px var(--accent-dim), 0 4px 16px rgba(26, 122, 184, .35) !important;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+#btnSwap:hover,
+#btnSwapMobile:hover {
+    transform: scale(1.12) rotate(15deg) !important;
+    box-shadow: 0 0 0 5px rgba(26, 122, 184, .22), 0 8px 24px rgba(26, 122, 184, .40) !important;
+    background: #1565a0 !important;
+}
+
+#btnSwap svg,
+#btnSwapMobile svg {
+    stroke: #fff;
+}
+
+#rateInfo {
+    color: var(--accent);
+    font-weight: 700;
+    animation: fadeInUp .35s ease both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 input[type=number] {
-    -moz-appearance: textfield; 
+    -moz-appearance: textfield;
 }
 
-/* Ẩn mũi tên mặc định của select trên IE/Edge cũ (Tailwind appearance-none đã lo phần lớn) */
 select::-ms-expand {
     display: none;
+}
+
+/* Fix: select text không đè lên mũi tên */
+#currencyFrom,
+#currencyTo {
+    padding-right: 2rem !important; /* 32px — bắt buộc browser tôn trọng */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+#flagFrom,
+#flagTo {
+    border: 1.5px solid rgba(26, 122, 184, .30) !important;
+    box-shadow: 0 0 0 2px rgba(26, 122, 184, .12);
+}
+
+h1 {
+    letter-spacing: -.02em;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(10, 50, 90, .25);
+}
+
+.bg-brand-dark p {
+    color: rgba(255, 255, 255, .88) !important;
+    text-shadow: 0 1px 6px rgba(10, 50, 90, .20);
+}
+
+/* ── Custom dropdown ──────────────────────────── */
+.dropdown-menu {
+    animation: dropIn .18s ease both;
+    transform-origin: top right;
+}
+
+@keyframes dropIn {
+    from { opacity: 0; transform: scale(.95) translateY(-6px); }
+    to   { opacity: 1; transform: scale(1)   translateY(0);    }
+}
+
+.dropdown-option.selected-option {
+    background-color: rgba(26,122,184,.10);
+    color: var(--accent);
+    font-weight: 600;
 }
