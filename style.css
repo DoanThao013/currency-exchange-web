@@ -188,7 +188,8 @@ select::-ms-expand {
 /* Fix: select text không đè lên mũi tên */
 #currencyFrom,
 #currencyTo {
-    padding-right: 2rem !important; /* 32px — bắt buộc browser tôn trọng */
+    padding-right: 2rem !important;
+    /* 32px — bắt buộc browser tôn trọng */
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -219,12 +220,19 @@ h1 {
 }
 
 @keyframes dropIn {
-    from { opacity: 0; transform: scale(.95) translateY(-6px); }
-    to   { opacity: 1; transform: scale(1)   translateY(0);    }
+    from {
+        opacity: 0;
+        transform: scale(.95) translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .dropdown-option.selected-option {
-    background-color: rgba(26,122,184,.10);
+    background-color: rgba(26, 122, 184, .10);
     color: var(--accent);
     font-weight: 600;
 }
