@@ -13,7 +13,6 @@
 
 <body class="antialiased min-h-screen flex flex-col">
 
-    <!-- Animated background orbs -->
     <div class="orb orb-1" aria-hidden="true"></div>
     <div class="orb orb-2" aria-hidden="true"></div>
     <div class="orb orb-3" aria-hidden="true"></div>
@@ -24,14 +23,14 @@
         </div>
     </div>
 
-    <!-- Main Card Container -->
+    
     <div class="container mx-auto px-4 relative z-20 mt-8 mb-20">
         <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-6 md:p-8">
 
-            <!-- Inputs Row -->
+            
             <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6 relative">
 
-                <!-- "From" Input Box -->
+                
                 <div
                     class="w-full border border-gray-200 rounded-xl p-3 md:p-4 hover:border-gray-300 focus-within:border-brand-blue focus-within:ring-1 focus-within:ring-brand-blue transition-all bg-white relative">
                     <label class="block text-sm text-gray-500 font-medium mb-1">Từ</label>
@@ -42,7 +41,7 @@
                                 class="text-xl md:text-2xl font-bold text-gray-800 w-full outline-none bg-transparent"
                                 placeholder="0.00">
                         </div>
-                        <!-- Custom dropdown: From -->
+                        
                         <div id="dropdownWrapFrom" class="currency-dropdown relative">
                             <button id="triggerFrom" type="button"
                                 class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-200 cursor-pointer focus:outline-none">
@@ -84,7 +83,7 @@
                     </div>
                 </div>
 
-                <!-- Swap Button (Desktop) -->
+                
                 <div
                     class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 hidden md:flex items-center justify-center">
                     <button id="btnSwap"
@@ -96,7 +95,7 @@
                     </button>
                 </div>
 
-                <!-- Swap Button (Mobile) -->
+                
                 <button id="btnSwapMobile"
                     class="md:hidden w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 text-gray-600 shadow-sm z-30 -my-6 relative focus:outline-none">
                     <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +104,7 @@
                     </svg>
                 </button>
 
-                <!-- "To" Input Box -->
+                
                 <div
                     class="w-full border border-gray-200 rounded-xl p-3 md:p-4 hover:border-gray-300 focus-within:border-brand-blue focus-within:ring-1 focus-within:ring-brand-blue transition-all bg-white relative">
                     <label class="block text-sm text-gray-500 font-medium mb-1">Đến</label>
@@ -160,12 +159,11 @@
 
             </div>
 
-            <!-- Footer Section -->
+            
             <div class="mt-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-                <!-- Rate Info -->
+
                 <div>
                     <h3 id="rateInfo" class="text-xl md:text-2xl font-bold text-brand-dark mb-1">
-                        <!-- Sẽ được cập nhật bằng JS -->
                     </h3>
 
                 </div>
@@ -175,7 +173,6 @@
         </div>
     </div>
 
-    <!-- File JavaScript riêng -->
     <script src="main.js"></script>
 </body>
 

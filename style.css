@@ -185,11 +185,9 @@ select::-ms-expand {
     display: none;
 }
 
-/* Fix: select text không đè lên mũi tên */
 #currencyFrom,
 #currencyTo {
     padding-right: 2rem !important;
-    /* 32px — bắt buộc browser tôn trọng */
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -213,7 +211,6 @@ h1 {
     text-shadow: 0 1px 6px rgba(10, 50, 90, .20);
 }
 
-/* ── Custom dropdown ──────────────────────────── */
 .dropdown-menu {
     animation: dropIn .18s ease both;
     transform-origin: top right;

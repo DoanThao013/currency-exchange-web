@@ -1,50 +1,46 @@
 // ── Dữ liệu tiền tệ ──────────────────────────────────────
-let currencyData = {
-    USD: { rate: 1,     symbol: "$",  flag: "us" },
-    EUR: { rate: 0.93,  symbol: "€",  flag: "eu" },
-    VND: { rate: 25450, symbol: "₫",  flag: "vn" },
-    AUD: { rate: 1.53,  symbol: "A$", flag: "au" }
+const currencyData = {
+    USD: { rate: 1, symbol: "$", flag: "us" },
+    EUR: { rate: 0.93, symbol: "€", flag: "eu" },
+    VND: { rate: 25450, symbol: "₫", flag: "vn" },
+    AUD: { rate: 1.53, symbol: "A$", flag: "au" }
 };
 
-// Giá trị đang chọn
 let selectedFrom = "USD";
-let selectedTo   = "VND";
+let selectedTo = "VND";
 
-// ── Lấy tỷ giá từ API ─────────────────────────────────────
 async function fetchRates() {
     try {
         const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-        if (!res.ok) throw new Error('Không lấy được tỷ giá');
+        if (!res.ok) throw new Error('Cannot fetch rates');
         const data = await res.json();
         Object.keys(currencyData).forEach(code => {
             if (data.rates[code]) currencyData[code].rate = data.rates[code];
         });
-    } catch (e) {
-        console.error('Lỗi lấy tỷ giá:', e);
+    } catch (err) {
+        console.error('Fetch rates error:', err);
     }
 }
 
-// ── DOM refs ──────────────────────────────────────────────
-const inputFrom   = document.getElementById('inputFrom');
-const inputTo     = document.getElementById('inputTo');
-const flagFrom    = document.getElementById('flagFrom');
-const flagTo      = document.getElementById('flagTo');
-const labelFrom   = document.getElementById('labelFrom');
-const labelTo     = document.getElementById('labelTo');
-const symbolFrom  = document.getElementById('symbolFrom');
-const symbolTo    = document.getElementById('symbolTo');
-const rateInfo    = document.getElementById('rateInfo');
-const btnSwap     = document.getElementById('btnSwap');
+const inputFrom = document.getElementById('inputFrom');
+const inputTo = document.getElementById('inputTo');
+const flagFrom = document.getElementById('flagFrom');
+const flagTo = document.getElementById('flagTo');
+const labelFrom = document.getElementById('labelFrom');
+const labelTo = document.getElementById('labelTo');
+const symbolFrom = document.getElementById('symbolFrom');
+const symbolTo = document.getElementById('symbolTo');
+const rateInfo = document.getElementById('rateInfo');
+const btnSwap = document.getElementById('btnSwap');
 const btnSwapMobile = document.getElementById('btnSwapMobile');
 
 const triggerFrom = document.getElementById('triggerFrom');
-const triggerTo   = document.getElementById('triggerTo');
-const menuFrom    = document.getElementById('menuFrom');
-const menuTo      = document.getElementById('menuTo');
+const triggerTo = document.getElementById('triggerTo');
+const menuFrom = document.getElementById('menuFrom');
+const menuTo = document.getElementById('menuTo');
 const chevronFrom = document.getElementById('chevronFrom');
-const chevronTo   = document.getElementById('chevronTo');
+const chevronTo = document.getElementById('chevronTo');
 
-// ── Custom dropdown logic ─────────────────────────────────
 function openMenu(menu, chevron) {
     menu.classList.remove('hidden');
     chevron.style.transform = 'rotate(180deg)';
@@ -62,23 +58,21 @@ function toggleMenu(menu, chevron, otherMenu, otherChevron) {
     else openMenu(menu, chevron);
 }
 
-triggerFrom.addEventListener('click', (e) => {
+triggerFrom.addEventListener('click', e => {
     e.stopPropagation();
     toggleMenu(menuFrom, chevronFrom, menuTo, chevronTo);
 });
 
-triggerTo.addEventListener('click', (e) => {
+triggerTo.addEventListener('click', e => {
     e.stopPropagation();
     toggleMenu(menuTo, chevronTo, menuFrom, chevronFrom);
 });
 
-// Đóng khi click ra ngoài
 document.addEventListener('click', () => {
     closeMenu(menuFrom, chevronFrom);
     closeMenu(menuTo, chevronTo);
 });
 
-// Highlight option đang được chọn
 function highlightSelected(menu, value) {
     menu.querySelectorAll('.dropdown-option').forEach(li => {
         li.classList.toggle('bg-blue-50', li.dataset.value === value);
@@ -86,53 +80,43 @@ function highlightSelected(menu, value) {
     });
 }
 
-// Chọn tiền tệ "From"
 menuFrom.querySelectorAll('.dropdown-option').forEach(li => {
-    li.addEventListener('click', (e) => {
+    li.addEventListener('click', e => {
         e.stopPropagation();
-        const val  = li.dataset.value;
+        const val = li.dataset.value;
         const flag = li.dataset.flag;
-        const lbl  = li.dataset.label;
-
-        // Không cho chọn trùng với "To"
+        const lbl = li.dataset.label;
         if (val === selectedTo) return;
-
         selectedFrom = val;
-        flagFrom.src  = `https://flagcdn.com/w40/${flag}.png`;
+
+        flagFrom.src = `https://flagcdn.com/w40/${flag}.png`;
         labelFrom.textContent = lbl;
         closeMenu(menuFrom, chevronFrom);
         highlightSelected(menuFrom, val);
-
-        // Disable option trùng bên "To"
         updateDisabledOptions();
         updateUI();
         calculate();
     });
 });
 
-// Chọn tiền tệ "To"
 menuTo.querySelectorAll('.dropdown-option').forEach(li => {
-    li.addEventListener('click', (e) => {
+    li.addEventListener('click', e => {
         e.stopPropagation();
-        const val  = li.dataset.value;
+        const val = li.dataset.value;
         const flag = li.dataset.flag;
-        const lbl  = li.dataset.label;
-
+        const lbl = li.dataset.label;
         if (val === selectedFrom) return;
-
         selectedTo = val;
-        flagTo.src   = `https://flagcdn.com/w40/${flag}.png`;
+        flagTo.src = `https://flagcdn.com/w40/${flag}.png`;
         labelTo.textContent = lbl;
         closeMenu(menuTo, chevronTo);
         highlightSelected(menuTo, val);
-
         updateDisabledOptions();
         updateUI();
         calculate();
     });
 });
 
-// Làm mờ option bị trùng
 function updateDisabledOptions() {
     menuFrom.querySelectorAll('.dropdown-option').forEach(li => {
         const disabled = li.dataset.value === selectedTo;
@@ -146,14 +130,13 @@ function updateDisabledOptions() {
     });
 }
 
-// ── UI / Tính toán ────────────────────────────────────────
 function updateUI() {
     const from = currencyData[selectedFrom];
-    const to   = currencyData[selectedTo];
-    flagFrom.src  = `https://flagcdn.com/w40/${from.flag}.png`;
-    flagTo.src    = `https://flagcdn.com/w40/${to.flag}.png`;
+    const to = currencyData[selectedTo];
+    flagFrom.src = `https://flagcdn.com/w40/${from.flag}.png`;
+    flagTo.src = `https://flagcdn.com/w40/${to.flag}.png`;
     symbolFrom.innerText = from.symbol;
-    symbolTo.innerText   = to.symbol;
+    symbolTo.innerText = to.symbol;
 }
 
 function formatNumber(num, code) {
@@ -173,29 +156,21 @@ function calculate() {
     let converted = amountInUSD * currencyData[selectedTo].rate;
     if (isNaN(converted)) converted = 0;
     inputTo.value = formatNumber(converted, selectedTo);
-
     const baseRate = (1 / currencyData[selectedFrom].rate) * currencyData[selectedTo].rate;
     rateInfo.innerHTML = `1.00 ${selectedFrom} = <span class="text-brand-blue">${formatNumber(baseRate, selectedTo)}</span> ${selectedTo}`;
 }
 
 function swapCurrencies() {
     const currentToValue = parseFormattedNumber(inputTo.value, selectedTo);
-
-    // Swap values
     [selectedFrom, selectedTo] = [selectedTo, selectedFrom];
-
-    // Cập nhật trigger labels & flags
     const fromData = currencyData[selectedFrom];
-    const toData   = currencyData[selectedTo];
-    flagFrom.src  = `https://flagcdn.com/w40/${fromData.flag}.png`;
-    flagTo.src    = `https://flagcdn.com/w40/${toData.flag}.png`;
-
-    // Tìm label tương ứng từ menu
+    const toData = currencyData[selectedTo];
+    flagFrom.src = `https://flagcdn.com/w40/${fromData.flag}.png`;
+    flagTo.src = `https://flagcdn.com/w40/${toData.flag}.png`;
     const fromOption = menuFrom.querySelector(`[data-value="${selectedFrom}"]`);
-    const toOption   = menuTo.querySelector(`[data-value="${selectedTo}"]`);
+    const toOption = menuTo.querySelector(`[data-value="${selectedTo}"]`);
     if (fromOption) labelFrom.textContent = fromOption.dataset.label;
-    if (toOption)   labelTo.textContent   = toOption.dataset.label;
-
+    if (toOption) labelTo.textContent = toOption.dataset.label;
     highlightSelected(menuFrom, selectedFrom);
     highlightSelected(menuTo, selectedTo);
     updateDisabledOptions();
@@ -208,8 +183,7 @@ inputFrom.addEventListener('input', calculate);
 btnSwap.addEventListener('click', swapCurrencies);
 btnSwapMobile.addEventListener('click', swapCurrencies);
 
-// ── Init ──────────────────────────────────────────────────
-(async function init() {
+(async function () {
     await fetchRates();
     highlightSelected(menuFrom, selectedFrom);
     highlightSelected(menuTo, selectedTo);
